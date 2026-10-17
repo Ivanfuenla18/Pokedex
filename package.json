@@ -1,9 +1,18 @@
 {
   "name": "pokedex",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
+  "description": "Pokédex interactiva de Kanto con búsqueda, filtros por tipo, comparador, favoritos y modo oscuro.",
+  "author": "Iván Paniagua Sánchez <ivanfuenla18@gmail.com>",
   "type": "module",
   "homepage": "https://Ivanfuenla18.github.io/Pokedex",
+  "keywords": [
+    "pokedex",
+    "react",
+    "vite",
+    "tailwindcss",
+    "pokeapi"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -27,7 +36,7 @@
     "eslint": "^9.25.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
-    "gh-pages": "^6.3.0",
+    "gh-pages": "^6.1.1",
     "globals": "^16.0.0",
     "vite": "^6.3.5"
   }

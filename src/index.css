@@ -1,1 +1,73 @@
 @import "tailwindcss";
+
+/* Modo oscuro controlado por la clase .dark en <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --animate-fade-in: fade-in 0.35s ease-out both;
+  --animate-pop: pop 0.25s ease-out both;
+  --animate-slide-up: slide-up 0.3s ease-out both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.85);
+  }
+  60% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Barra de desplazamiento discreta */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgb(148 163 184 / 0.5);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}

@@ -1,16 +1,14 @@
-// src/main.jsx (o index.jsx)
 import { StrictMode } from "react";
-import React from "react";
-import { BrowserRouter } from "react-router-dom";
-
 import { createRoot } from "react-dom/client";
+import { HashRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App.jsx";
 
+// HashRouter evita los 404 de GitHub Pages al recargar o compartir una URL.
 createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <BrowserRouter basename="/Pokedex">
+  <StrictMode>
+    <HashRouter>
       <App />
-    </BrowserRouter>
-  </React.StrictMode>
+    </HashRouter>
+  </StrictMode>,
 );

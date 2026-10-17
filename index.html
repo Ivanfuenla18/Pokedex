@@ -1,10 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/Icono.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pokedex</title>
+
+    <!-- SEO -->
+    <title>Pokédex Interactiva · Iván Paniagua Sánchez</title>
+    <meta
+      name="description"
+      content="Pokédex interactiva de Kanto: busca Pokémon, filtra por tipo, compáralos, guarda tus favoritos y consulta estadísticas, habilidades y evoluciones. Datos en vivo de PokeAPI."
+    />
+    <meta name="author" content="Iván Paniagua Sánchez" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#dc2626" />
+    <link rel="canonical" href="https://ivanfuenla18.github.io/Pokedex/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="Pokédex Interactiva" />
+    <meta property="og:title" content="Pokédex Interactiva · Iván Paniagua Sánchez" />
+    <meta
+      property="og:description"
+      content="Busca, filtra por tipo, compara y guarda tus Pokémon favoritos. Estadísticas, habilidades y evoluciones en vivo."
+    />
+    <meta property="og:url" content="https://ivanfuenla18.github.io/Pokedex/" />
+    <meta property="og:image" content="https://ivanfuenla18.github.io/Pokedex/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Pokédex Interactiva · Iván Paniagua Sánchez" />
+    <meta
+      name="twitter:description"
+      content="Busca, filtra por tipo, compara y guarda tus Pokémon favoritos."
+    />
+    <meta name="twitter:image" content="https://ivanfuenla18.github.io/Pokedex/og-image.jpg" />
+
+    <!-- Iconos -->
+    <link rel="icon" type="image/png" href="/Icono.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Evita el parpadeo de tema: aplica el tema guardado antes de pintar -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("pokedex-theme");
+          var isDark = stored ? stored === "dark" : true;
+          if (isDark) document.documentElement.classList.add("dark");
+        } catch (e) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+
+    <!-- Datos estructurados -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Pokédex Interactiva",
+        "url": "https://ivanfuenla18.github.io/Pokedex/",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Web",
+        "author": { "@type": "Person", "name": "Iván Paniagua Sánchez" },
+        "description": "Pokédex interactiva con búsqueda, filtros por tipo, comparador, favoritos y estadísticas."
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

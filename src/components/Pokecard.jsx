@@ -1,87 +1,87 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import { TypeBadge } from "./TypeBadge";
+import { HeartIcon, CompareIcon } from "./icons";
+import { useFavorites } from "../context/FavoritesContext";
+import { useCompare } from "../context/CompareContext";
+import { formatId } from "../utils/pokemon";
 
-export const Pokecard = ({ pokemons }) => {
-  console.log(pokemons);
+export function Pokecard({ pokemon }) {
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const { isComparing, toggleCompare } = useCompare();
+
+  const favorite = isFavorite(pokemon.id);
+  const comparing = isComparing(pokemon.id);
+
+  const actionClass =
+    "flex h-8 w-8 items-center justify-center rounded-full border backdrop-blur transition focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500";
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {pokemons.map((pokemon) => (
-        <Link
-          to={`/pokemon/${pokemon.id}`}
-          key={pokemon.id}
-          className="block bg-white rounded-lg shadow-md p-4 text-center
-                     flex flex-col justify-between cursor-pointer
-                     transform transition-transform duration-200 ease-in-out
-                     hover:scale-105 hover:shadow-lg"
+    <article className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-slate-700 dark:bg-slate-800/60">
+      <div className="absolute right-3 top-3 z-10 flex gap-1.5">
+        <button
+          type="button"
+          onClick={() => toggleFavorite(pokemon.id)}
+          aria-pressed={favorite}
+          aria-label={
+            favorite
+              ? `Quitar ${pokemon.name} de favoritos`
+              : `Añadir ${pokemon.name} a favoritos`
+          }
+          title={favorite ? "Quitar de favoritos" : "Añadir a favoritos"}
+          className={`${actionClass} ${
+            favorite
+              ? "border-red-500 bg-red-500/10 text-red-500"
+              : "border-slate-200 bg-white/70 text-slate-400 hover:text-red-500 dark:border-slate-600 dark:bg-slate-800/70"
+          }`}
         >
-          <div>
-            <img
-              src={pokemon.sprites.front_default}
-              alt={pokemon.name}
-              className="mx-auto h-32 w-32 mb-4"
-            />
-            <p className="text-xl font-semibold capitalize mb-1">
-              {pokemon.name}
-            </p>
-            <p className="text-gray-600 mb-2">ID: {pokemon.id}</p>
-            <div className="flex justify-center gap-2 mt-2 flex-wrap">
-              {pokemon.types.map((typeInfo) => (
-                <span
-                  key={typeInfo.type.name}
-                  className={`text-white text-xs font-bold px-2 py-1 rounded-full capitalize ${getTypeColor(
-                    typeInfo.type.name
-                  )}`}
-                >
-                  {typeInfo.type.name}
-                </span>
-              ))}
-            </div>
-          </div>
-        </Link>
-      ))}
-    </div>
-  );
-};
+          <HeartIcon filled={favorite} className="h-4 w-4" />
+        </button>
 
-const getTypeColor = (type) => {
-  switch (type) {
-    case "fire":
-      return "bg-red-500";
-    case "water":
-      return "bg-blue-500";
-    case "grass":
-      return "bg-green-500";
-    case "electric":
-      return "bg-yellow-500";
-    case "psychic":
-      return "bg-pink-500";
-    case "ice":
-      return "bg-blue-300";
-    case "dragon":
-      return "bg-indigo-700";
-    case "dark":
-      return "bg-gray-800";
-    case "fairy":
-      return "bg-pink-300";
-    case "normal":
-      return "bg-gray-400";
-    case "fighting":
-      return "bg-orange-700";
-    case "flying":
-      return "bg-indigo-300";
-    case "poison":
-      return "bg-purple-600";
-    case "ground":
-      return "bg-yellow-800";
-    case "rock":
-      return "bg-gray-700";
-    case "bug":
-      return "bg-green-700";
-    case "ghost":
-      return "bg-purple-900";
-    case "steel":
-      return "bg-gray-500";
-    default:
-      return "bg-gray-500";
-  }
-};
+        <button
+          type="button"
+          onClick={() => toggleCompare(pokemon.id)}
+          aria-pressed={comparing}
+          aria-label={
+            comparing
+              ? `Quitar ${pokemon.name} del comparador`
+              : `Comparar ${pokemon.name}`
+          }
+          title={comparing ? "Quitar del comparador" : "Añadir al comparador"}
+          className={`${actionClass} ${
+            comparing
+              ? "border-sky-500 bg-sky-500/10 text-sky-500"
+              : "border-slate-200 bg-white/70 text-slate-400 hover:text-sky-500 dark:border-slate-600 dark:bg-slate-800/70"
+          }`}
+        >
+          <CompareIcon className="h-4 w-4" />
+        </button>
+      </div>
+
+      <Link
+        to={`/pokemon/${pokemon.id}`}
+        className="block text-center focus:outline-none"
+        aria-label={`Ver detalles de ${pokemon.name}`}
+      >
+        <img
+          src={pokemon.sprites?.front_default}
+          alt={pokemon.name}
+          width="112"
+          height="112"
+          loading="lazy"
+          className="mx-auto h-28 w-28 object-contain transition duration-300 group-hover:scale-110"
+        />
+        <p className="mt-2 text-xs font-semibold text-slate-400 dark:text-slate-500">
+          {formatId(pokemon.id)}
+        </p>
+        <h3 className="text-base font-bold capitalize text-slate-800 dark:text-slate-100">
+          {pokemon.name}
+        </h3>
+        <div className="mt-2 flex flex-wrap justify-center gap-1.5">
+          {pokemon.types.map(({ type }) => (
+            <TypeBadge key={type.name} type={type.name} />
+          ))}
+        </div>
+      </Link>
+    </article>
+  );
+}
